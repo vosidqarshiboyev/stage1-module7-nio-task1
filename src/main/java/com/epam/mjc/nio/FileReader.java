@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class FileReader {
@@ -13,7 +15,6 @@ public class FileReader {
         try(RandomAccessFile r=new RandomAccessFile(file,"r")){
             FileChannel fileChannel=r.getChannel();
             ByteBuffer byteBuffer=ByteBuffer.allocate(48);
-            int c;
             StringBuilder s=new StringBuilder("");
             while((fileChannel.read(byteBuffer)>0)){
                 byteBuffer.flip();
@@ -32,7 +33,8 @@ public class FileReader {
             profile.setPhone(Long.parseLong(result[7]));
 
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            Logger logger= Logger.getLogger("FileReader");
+            logger.log(Level.WARNING,"hey");
         }
         return profile;
     }
